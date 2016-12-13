@@ -85,4 +85,12 @@ public class TCPConnection {
     public static TCPConnection connect(final String host, final short port) {
         return connect(host, port, DEFAULT_OUTPUT_BUFFER_SIZE, DEFAULT_INPUT_BUFFER_SIZE);
     }
+
+    /**
+     * Gets the {@link ClientSocket socket} instance
+     * @return  the client socket
+     */
+    public ClientSocket getClientSocket() {
+        return clientSocket;
+    }
 }
