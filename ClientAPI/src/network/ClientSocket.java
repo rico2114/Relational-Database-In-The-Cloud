@@ -35,6 +35,14 @@ public class ClientSocket {
     }
 
     /**
+     * Returns the socket instance only for classes managing the network package
+     * @return  the socket instance
+     */
+    protected Socket getSocket() {
+        return socket;
+    }
+
+    /**
      * Gets the {@link OutputBuffer buffer} used in storing the output data
      * @return  the output buffer
      */

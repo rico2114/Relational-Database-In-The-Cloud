@@ -21,12 +21,12 @@ public class InputBuffer extends Buffer {
     /**
      * Reads x amount of bytes {@code amount} starting from the desired offset
      * @param amount    the amount of bytes to be read
-     * @param offset    the offset where you want to start reading
      * @return  the bytes with the data
      */
-    byte[] readBytes(final int amount, final int offset) {
+    byte[] readBytes(final int amount) {
         final byte [] data = new byte[amount];
-        buffer.get(data, offset, amount);
+        buffer.get(data, readOffset, amount);
+        readOffset += amount;
         return data;
     }
 }

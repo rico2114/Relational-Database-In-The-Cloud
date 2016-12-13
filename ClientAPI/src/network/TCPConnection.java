@@ -11,6 +11,11 @@ import java.util.logging.Logger;
 public class TCPConnection {
 
     /**
+     * Represents the logger used for the tcp connection
+     */
+    private static final Logger LOGGER = Logger.getLogger(TCPConnection.class.getName());
+
+    /**
      * Defines the default output buffer size with a total of 200 chars available for sending data to the server
      */
     private static final int DEFAULT_OUTPUT_BUFFER_SIZE = Character.BYTES * 200;
@@ -19,11 +24,6 @@ public class TCPConnection {
      * Defines the default input buffer size with a total of 200 chars available for reading data
      */
     private static final int DEFAULT_INPUT_BUFFER_SIZE = DEFAULT_OUTPUT_BUFFER_SIZE;
-
-    /**
-     * Represents the logger used for the tcp connection
-     */
-    private static final Logger LOGGER = Logger.getLogger(TCPConnection.class.getName());
 
     /**
      * Represents the {@link ClientSocket socket} connection to the server
@@ -39,6 +39,22 @@ public class TCPConnection {
      */
     private TCPConnection(final Socket socket, final int outputBufferSize, final int inputBufferSize) {
         this.clientSocket = new ClientSocket(socket, new OutputBuffer(outputBufferSize), new InputBuffer(inputBufferSize));
+    }
+
+    /**
+     * Attempts to flush all the queued data in the {@link OutputBuffer buffer}.
+     * If the system fails to flush the data the {@link Logger logger} will throw
+     * an exception
+     */
+    public void flushOutputBuffer() {
+        final Socket socket = clientSocket.getSocket();
+        final OutputBuffer outputBuffer = clientSocket.getOutputBuffer();
+        try {
+            socket.getOutputStream().write(outputBuffer.getUsedBytes());
+            socket.getOutputStream().flush();
+        } catch (IOException exception) {
+            LOGGER.log(Level.SEVERE, exception.toString(), exception);
+        }
     }
 
     /**
