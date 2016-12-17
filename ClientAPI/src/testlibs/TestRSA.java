@@ -22,11 +22,13 @@ public class TestRSA {
         byte[] message = "abc".getBytes();
         signature.update(message);
         byte[] sigBytes = signature.sign();
+        // send sigBytes
+        // send message we have to check the two messages
 
         // Init verification with the public key from the client (CLIENT SIDE)
         signature = Signature.getInstance("SHA1withRSA", "BC");
         signature.initVerify(keyPair.getPublic());
         signature.update(message);
-        System.out.println(signature.verify(sigBytes));
+        System.out.println(signature.verify(sigBytes)); // true if signature is valid false otherwise
     }
 }
