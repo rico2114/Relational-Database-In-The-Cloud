@@ -2,6 +2,8 @@ package network;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
+import network.pipeline.header.HeaderDecoder;
+import network.pipeline.header.HeaderHandler;
 
 /**
  * Created by Sebastían on 16/12/2016.
@@ -16,7 +18,7 @@ public class ChannelConfiguration extends ChannelInitializer<SocketChannel> {
 
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
-
+        ch.pipeline().addLast(new HeaderDecoder(), new HeaderHandler());
     }
 
     /**

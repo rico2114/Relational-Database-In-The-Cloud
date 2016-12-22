@@ -13,7 +13,7 @@ public class NetworkEnvironment {
     /**
      * Represents the port used by the network
      */
-    public static final int PORT = 43594;
+    public static final int PORT = 445;
 
     /**
      * Represents the system used for recognizing that the network is already running
